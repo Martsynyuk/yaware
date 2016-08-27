@@ -96,4 +96,19 @@ class UserController extends AbstractActionController
 		$this->table->saveUser($user);
 		return $this->redirect()->toUrl('/user/login');
 	}
+	
+	public function dashboardAction()
+	{
+		return new ViewModel();
+	}
+	
+	public function reportsAction()
+	{
+		return new ViewModel();
+	}
+	
+	public function configurationAction()
+	{
+		return new ViewModel();
+	}
 }
