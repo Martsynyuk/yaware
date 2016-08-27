@@ -35,10 +35,6 @@ class RegistrationForm extends Form
 				],
 		]);
 		$this->add([
-				'name' => 'access',
-				'type' => 'hidden',
-		]);
-		$this->add([
 				'name' => 'submit',
 				'type' => 'submit',
 				'attributes' => [

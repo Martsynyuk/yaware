@@ -6,6 +6,7 @@ use Zend\View\Model\ViewModel;
 use Yaware\Model\UserTable;
 use Yaware\Form\LoginForm;
 use Yaware\Form\RegistrationForm;
+use Yaware\Model\User;
 
 class UserController extends AbstractActionController
 {
@@ -31,10 +32,11 @@ class UserController extends AbstractActionController
 		if (! $request->isPost()) {
 			return ['form' => $form];
 		}
+		
 	
 		/*$album->exchangeArray($form->getData());
 		$this->table->save();
-		return $this->redirect()->toRoute('album');*/
+		return $this->redirect()->toRoute('/');*/
 	}
 	
 	public function registrationAction()
@@ -48,5 +50,16 @@ class UserController extends AbstractActionController
 			return ['form' => $form];
 		}
 		
+		$user = new User();
+		$form->setInputFilter($user->getInputFilter());
+		$form->setData($request->getPost());
+		
+		if (! $form->isValid()) {
+			return ['form' => $form];
+		}
+
+		$user->exchangeArray($form->getData());
+		$this->table->saveUser($user);
+		return $this->redirect()->toRoute('user');
 	}
 }

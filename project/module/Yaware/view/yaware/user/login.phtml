@@ -10,12 +10,10 @@ $login = $form->get('username');
 $login->setAttribute('class', 'form-control');
 $login->setAttribute('placeholder', 'enter username');
 
-// This provides a default CSS class and placeholder text for the artist element:
 $password = $form->get('password');
 $password->setAttribute('class', 'form-control');
 $password->setAttribute('placeholder', 'enter password');
 
-// This provides CSS classes for the submit button:
 $submit = $form->get('submit');
 $submit->setAttribute('class', 'btn btn-primary');
 
@@ -24,8 +22,7 @@ $form->prepare();
 
 echo $this->form()->openTag($form);
 ?>
-<?php // Wrap the elements in divs marked as form groups, and render the
-      // label, element, and errors separately within ?>
+
 <div class="form-group">
     <?= $this->formLabel($login) ?>
     <?= $this->formElement($login) ?>
@@ -42,3 +39,6 @@ echo $this->form()->openTag($form);
 echo $this->formSubmit($submit);
 echo $this->formHidden($form->get('id'));
 echo $this->form()->closeTag();
+?>
+
+<a style="margin-top: 20px" class="btn btn-primary" href="<?= $this->url('user', ['action' => 'registration']) ?>">Registration</a>
