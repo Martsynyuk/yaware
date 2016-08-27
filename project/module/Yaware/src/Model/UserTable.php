@@ -23,4 +23,17 @@ class UserTable
 
 		$this->tableGateway->insert($data);
 	}
+	
+	public function getUser(User $user)
+	{
+		$data = [
+				'username' => $user->username,
+				'password'  => $user->password,
+		];
+		
+		$rowset = $this->tableGateway->select($data);
+		$row = $rowset->current();
+	
+		return $row;
+	}
 }

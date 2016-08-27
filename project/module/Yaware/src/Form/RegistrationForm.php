@@ -28,13 +28,6 @@ class RegistrationForm extends Form
 				],
 		]);
 		$this->add([
-				'name' => 'cofirmpassword',
-				'type' => 'password',
-				'options' => [
-						'label' => 'cofirm password',
-				],
-		]);
-		$this->add([
 				'name' => 'submit',
 				'type' => 'submit',
 				'attributes' => [

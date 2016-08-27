@@ -14,10 +14,6 @@ $password = $form->get('password');
 $password->setAttribute('class', 'form-control');
 $password->setAttribute('placeholder', 'enter password');
 
-$confirm = $form->get('cofirmpassword');
-$confirm->setAttribute('class', 'form-control');
-$confirm->setAttribute('placeholder', 'confirm password');
-
 $submit = $form->get('submit');
 $submit->setAttribute('class', 'btn btn-primary');
 
@@ -37,12 +33,6 @@ echo $this->form()->openTag($form);
     <?= $this->formLabel($password) ?>
     <?= $this->formElement($password) ?>
     <?= $this->formElementErrors()->render($password, ['class' => 'help-block']) ?>
-</div>
-
-<div class="form-group">
-    <?= $this->formLabel($confirm) ?>
-    <?= $this->formElement($confirm) ?>
-    <?= $this->formElementErrors()->render($confirm, ['class' => 'help-block']) ?>
 </div>
 
 <?php

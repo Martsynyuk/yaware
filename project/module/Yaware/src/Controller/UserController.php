@@ -33,10 +33,19 @@ class UserController extends AbstractActionController
 			return ['form' => $form];
 		}
 		
-	
-		/*$album->exchangeArray($form->getData());
-		$this->table->save();
-		return $this->redirect()->toRoute('/');*/
+		$user = new User();
+		$form->setInputFilter($user->getInputFilter());
+		$form->setData($request->getPost());
+		
+		if (! $form->isValid()) {
+			return ['form' => $form];
+		}
+		
+		$user->exchangeArray($form->getData());
+		if($this->table->getUser($user)) {
+			return $this->redirect()->toUrl('/');
+		}
+		return ['form' => $form];
 	}
 	
 	public function registrationAction()
@@ -60,6 +69,6 @@ class UserController extends AbstractActionController
 
 		$user->exchangeArray($form->getData());
 		$this->table->saveUser($user);
-		return $this->redirect()->toRoute('user');
+		return $this->redirect()->toUrl('/user/login');
 	}
 }

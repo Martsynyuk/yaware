@@ -15,7 +15,6 @@ class User implements InputFilterAwareInterface
 	public $id;
 	public $username;
 	public $password;
-	public $confirmpassword;
 	private $inputFilter;
 	
 	public function exchangeArray(array $data)
@@ -23,7 +22,6 @@ class User implements InputFilterAwareInterface
 		$this->id     = !empty($data['id']) ? $data['id'] : null;
 		$this->username = !empty($data['username']) ? $data['username'] : null;
 		$this->password  = !empty($data['password']) ? md5($data['password']) : null;
-		$this->confirmpassword  = !empty($data['confirmpassword']) ? $data['confirmpassword'] : null;
 	}
 	
 	public function getArrayCopy()
@@ -32,7 +30,6 @@ class User implements InputFilterAwareInterface
 				'id'     => $this->id,
 				'username' => $this->username,
 				'password'  => $this->password,
-				'confirmpassword' => $this->confirmpassword,
 		];
 	}
 	
