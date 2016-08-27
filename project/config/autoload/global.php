@@ -12,5 +12,10 @@
  */
 
 return [
-    // ...
+	'db' => [
+		'driver' => 'Pdo',
+		'dsn'    => sprintf('mysql:host=localhost;dbname=yaware', realpath(getcwd())),
+		'username' => 'root',
+		'password' => ''
+	],
 ];
