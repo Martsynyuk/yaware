@@ -19,6 +19,7 @@ class UserTable
 		$data = [
 				'username' => $user->username,
 				'password'  => $user->password,
+				'status' => $user->status,
 		];
 
 		$this->tableGateway->insert($data);
@@ -33,7 +34,7 @@ class UserTable
 		
 		$rowset = $this->tableGateway->select($data);
 		$row = $rowset->current();
-	
+		
 		return $row;
 	}
 }

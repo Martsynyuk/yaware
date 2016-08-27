@@ -15,12 +15,14 @@ class User implements InputFilterAwareInterface
 	public $id;
 	public $username;
 	public $password;
+	public $status;
 	private $inputFilter;
 	
 	public function exchangeArray(array $data)
 	{
 		$this->id     = !empty($data['id']) ? $data['id'] : null;
 		$this->username = !empty($data['username']) ? $data['username'] : null;
+		$this->status = !empty($data['status']) ? $data['status'] : null;
 		$this->password  = !empty($data['password']) ? md5($data['password']) : null;
 	}
 	
@@ -30,6 +32,7 @@ class User implements InputFilterAwareInterface
 				'id'     => $this->id,
 				'username' => $this->username,
 				'password'  => $this->password,
+				'status' => $this->status,
 		];
 	}
 	

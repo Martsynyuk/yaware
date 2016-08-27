@@ -6,7 +6,9 @@ use Zend\View\Model\ViewModel;
 use Yaware\Model\UserTable;
 use Yaware\Form\LoginForm;
 use Yaware\Form\RegistrationForm;
+use Yaware\Form\UserForm;
 use Yaware\Model\User;
+use Yaware\Auth\Auth;
 
 class UserController extends AbstractActionController
 {
@@ -19,7 +21,27 @@ class UserController extends AbstractActionController
 	
 	public function indexAction()
 	{
-		return new ViewModel();
+		$form = new UserForm();
+		$form->get('submit')->setValue('New User');
+		
+		$request = $this->getRequest();
+		
+		if (! $request->isPost()) {
+			return ['form' => $form];
+		}
+		
+		$user = new User();
+		$form->setInputFilter($user->getInputFilter());
+		$form->setData($request->getPost());
+		
+		if (! $form->isValid()) {
+			return ['form' => $form];
+		}
+
+		$user->exchangeArray($form->getData());
+		$this->table->saveUser($user);
+		return $this->redirect()->toUrl('/');
+		
 	}
 	
 	public function loginAction()
@@ -42,7 +64,10 @@ class UserController extends AbstractActionController
 		}
 		
 		$user->exchangeArray($form->getData());
+		
 		if($this->table->getUser($user)) {
+			$auth = new Auth();
+			$auth->auth($this->table->getUser($user)->id);
 			return $this->redirect()->toUrl('/');
 		}
 		return ['form' => $form];
