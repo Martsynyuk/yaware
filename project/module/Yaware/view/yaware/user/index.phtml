@@ -1,54 +1,10 @@
-<?php
-
-$title = 'New User';
-$this->headTitle($title);
-?>
-<h1><?= $this->escapeHtml($title) ?></h1>
-<?php
-
-$login = $form->get('username');
-$login->setAttribute('class', 'form-control');
-$login->setAttribute('placeholder', 'enter username');
-
-$password = $form->get('password');
-$password->setAttribute('class', 'form-control');
-$password->setAttribute('placeholder', 'enter password');
-
-$status = $form->get('status');
-$status->setAttribute('class', 'form-control');
-
-$submit = $form->get('submit');
-$submit->setAttribute('class', 'btn btn-primary');
-
-$form->setAttribute('action', $this->url('user', ['action' => 'index']));
-$form->prepare();
-
-echo $this->form()->openTag($form);
-?>
-
-<div class="form-group">
-    <?= $this->formLabel($login) ?>
-    <?= $this->formElement($login) ?>
-    <?= $this->formElementErrors()->render($login, ['class' => 'help-block']) ?>
+<?= 'index' ?>
+<div>
+	<a style="margin-top: 20px" class="btn btn-primary" href="<?= $this->url('user', ['action' => 'logout']) ?>">Logout</a>
 </div>
-
-<div class="form-group">
-    <?= $this->formLabel($password) ?>
-    <?= $this->formElement($password) ?>
-    <?= $this->formElementErrors()->render($password, ['class' => 'help-block']) ?>
+<div>
+	<a style="margin-top: 20px" class="btn btn-primary" href="<?= $this->url('user', ['action' => 'createUser']) ?>">create new user</a>
+	<a style="margin-top: 20px" class="btn btn-primary" href="<?= $this->url('user', ['action' => 'dashboard']) ?>">dashboard</a>
+	<a style="margin-top: 20px" class="btn btn-primary" href="<?= $this->url('user', ['action' => 'reports']) ?>">reports</a>
+	<a style="margin-top: 20px" class="btn btn-primary" href="<?= $this->url('user', ['action' => 'configuration']) ?>">configuration</a>
 </div>
-
-<div class="form-group">
-    <?= $this->formLabel($status) ?>
-    <?= $this->formElement($status) ?>
-</div>
-
-<?php
-echo $this->formSubmit($submit);
-echo $this->formHidden($form->get('id'));
-echo $this->form()->closeTag();
-?>
-
-<a style="margin-top: 20px" class="btn btn-primary" href="<?= $this->url('user', ['action' => 'dashboard']) ?>">dashboard</a>
-<a style="margin-top: 20px" class="btn btn-primary" href="<?= $this->url('user', ['action' => 'reports']) ?>">reports</a>
-<a style="margin-top: 20px" class="btn btn-primary" href="<?= $this->url('user', ['action' => 'configuration']) ?>">configuration</a>
