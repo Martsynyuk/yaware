@@ -13,7 +13,6 @@ use Yaware\Form\LoginForm;
 use Yaware\Form\RegistrationForm;
 use Yaware\Form\UserForm;
 use Yaware\Model\User;
-use Yaware\Auth\Auth;
 
 class UserController extends AbstractActionController
 {
@@ -28,8 +27,6 @@ class UserController extends AbstractActionController
 	
 	public function indexAction()
 	{
-		$user = $this->auth->getStorage()->read();
-		var_dump($user);
 		$this->autorization('index');
 		return new ViewModel();
 	}
@@ -56,24 +53,14 @@ class UserController extends AbstractActionController
 		}
 		
 		$user->exchangeArray($form->getData());
-		
-		/*if($this->table->getUser($user)) {
-			$auth = new Auth();
-			
-			$auth->auth($this->table->getUser($user)->id,
-						$this->table->getUser($user)->status
-					);
-			return $this->redirect()->toUrl('/');
-		}
-		return ['form' => $form];*/
-		
-		$dbAdapter = new DbAdapter(array(
+
+		$dbAdapter = new DbAdapter([
 				'driver' => 'Pdo_Mysql',
-				'hostname' => '192.168.100.100',
+				'hostname' => 'localhost',
 				'database' => 'yaware',
 				'username' => 'root',
-				'password' => '123456'
-		));
+				'password' => ''
+		]);
 		
 		$authAdapter = new AuthAdapter($dbAdapter,
 				'user',
@@ -89,12 +76,12 @@ class UserController extends AbstractActionController
 		$result = $this->auth->authenticate($authAdapter);
 		
 		if ($result->isValid()) {
+			
 			$storage = $this->auth->getStorage();
 			$storage->write($authAdapter->getResultRowObject());
-		
-			$this->redirect()->toUrl('/user/index');
-		}
-		
+			
+			return $this->redirect()->toUrl('/');
+		}	
 	}
 	
 	public function registrationAction()
@@ -186,10 +173,13 @@ class UserController extends AbstractActionController
 	
 	public function autorization($action)
 	{
-		$acl = $this->autorizationRules();
+		if(!isset($this->auth->getStorage()->read()->status)) {
+			$status = 'guest';
+		} else {
+			$status = $this->auth->getStorage()->read()->status;
+		}
 		
-		$status = new Auth();
-		$status = $status->getUserStatus();
+		$acl = $this->autorizationRules();
 		
 		if(!$acl->isAllowed($status, null, $action)) {
 			if($status == 'guest') {
@@ -201,8 +191,7 @@ class UserController extends AbstractActionController
 	
 	public function logoutAction()
 	{
-		$auth = new Auth();
-		$auth->logout();
+		$this->auth->clearIdentity();
 		return $this->redirect()->toUrl('/user/login');
 	}
 }

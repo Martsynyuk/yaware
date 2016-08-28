@@ -22,7 +22,7 @@ class UserTable
 		
 		$data = [
 				'username' => $user->username,
-				'password'  => $user->password,
+				'password'  => md5($user->password),
 				'status' => $user->status,
 		];
 
@@ -33,7 +33,7 @@ class UserTable
 	{
 		$data = [
 				'username' => $user->username,
-				'password'  => $user->password,
+				'password'  => md5($user->password),
 		];
 		
 		$rowset = $this->tableGateway->select($data);

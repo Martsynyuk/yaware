@@ -23,7 +23,7 @@ class User implements InputFilterAwareInterface
 		$this->id     = !empty($data['id']) ? $data['id'] : null;
 		$this->username = !empty($data['username']) ? $data['username'] : null;
 		$this->status = !empty($data['status']) ? $data['status'] : null;
-		$this->password  = !empty($data['password']) ? md5($data['password']) : null;
+		$this->password  = !empty($data['password']) ? $data['password'] : null;
 	}
 	
 	public function getArrayCopy()
