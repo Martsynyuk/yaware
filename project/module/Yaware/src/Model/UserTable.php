@@ -16,6 +16,10 @@ class UserTable
 	
 	public function saveUser(User $user)
 	{
+		if(!$user->status) {
+			$user->status = 'owner';
+		}
+		
 		$data = [
 				'username' => $user->username,
 				'password'  => $user->password,

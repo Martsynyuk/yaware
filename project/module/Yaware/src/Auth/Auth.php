@@ -1,7 +1,7 @@
 <?php
 namespace Yaware\Auth;
 
-session_start();
+//session_start();
 
 class Auth 
 {
